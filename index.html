@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎵 Radio z assets/piosenki + Shoutbox</title>
+    <title>🎵 Radio z assets/piosenki + Chatango</title>
     <style>
         * {
             box-sizing: border-box;
@@ -22,7 +22,7 @@
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 1fr 400px;
+            grid-template-columns: 1fr 300px;
             gap: 20px;
         }
         
@@ -41,17 +41,31 @@
             border: 1px solid rgba(255,255,255,0.1);
         }
         
-        .shoutbox-section {
+        .chat-section {
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(10px);
             border-radius: 20px;
-            padding: 25px;
+            padding: 20px;
             box-shadow: 0 8px 32px rgba(0,0,0,0.3);
             border: 1px solid rgba(255,255,255,0.1);
             display: flex;
             flex-direction: column;
             height: fit-content;
-            max-height: 700px;
+        }
+        
+        .chat-section h2 {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+        }
+        
+        .chatango-container {
+            display: flex;
+            justify-content: center;
+            border-radius: 10px;
+            overflow: hidden;
         }
         
         h2, h3 {
@@ -352,108 +366,7 @@
             color: #4ecdc4;
         }
         
-        /* Shoutbox */
-        .shoutbox-messages {
-            flex: 1;
-            overflow-y: auto;
-            margin-bottom: 20px;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 12px;
-            min-height: 300px;
-            max-height: 500px;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-        
-        .message {
-            margin-bottom: 15px;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            border-left: 2px solid #667eea;
-        }
-        
-        .message-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-        }
-        
-        .message-name {
-            font-weight: bold;
-            color: #4ecdc4;
-        }
-        
-        .message-time {
-            font-size: 11px;
-            opacity: 0.5;
-        }
-        
-        .message-text {
-            word-wrap: break-word;
-            line-height: 1.4;
-        }
-        
-        .shoutbox-input-area {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        
-        .shoutbox-input-area input,
-        .shoutbox-input-area textarea {
-            padding: 12px;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 10px;
-            background: rgba(0, 0, 0, 0.3);
-            color: white;
-            font-size: 14px;
-            font-family: inherit;
-        }
-        
-        .shoutbox-input-area input:focus,
-        .shoutbox-input-area textarea:focus {
-            outline: none;
-            border-color: #4ecdc4;
-        }
-        
-        .shoutbox-input-area textarea {
-            resize: vertical;
-            min-height: 70px;
-        }
-        
-        .shoutbox-input-area button {
-            padding: 12px;
-            border: none;
-            border-radius: 10px;
-            background: #667eea;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .shoutbox-input-area button:hover {
-            background: #5a67d8;
-        }
-        
-        .clear-shoutbox {
-            margin-top: 10px;
-            padding: 8px;
-            background: rgba(239, 68, 68, 0.2);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            border-radius: 8px;
-            color: #ef4444;
-            cursor: pointer;
-            font-size: 12px;
-            transition: all 0.3s;
-        }
-        
-        .clear-shoutbox:hover {
-            background: rgba(239, 68, 68, 0.3);
-        }
-        
-        /* Loader */
+        /* Loader i errory */
         .loader {
             text-align: center;
             padding: 20px;
@@ -558,19 +471,12 @@
             </div>
         </div>
         
-        <!-- Sekcja shoutboxa -->
-        <div class="shoutbox-section">
-            <h2>💬 Shoutbox</h2>
-            
-            <div class="shoutbox-messages" id="shoutboxMessages"></div>
-            
-            <div class="shoutbox-input-area">
-                <input type="text" id="shoutboxName" placeholder="Twoje imię" value="Słuchacz" maxlength="20">
-                <textarea id="shoutboxMessage" placeholder="Napisz co myślisz o muzyce..."></textarea>
-                <button id="sendMessageBtn">✉️ Wyślij wiadomość</button>
+        <!-- Sekcja Chatango -->
+        <div class="chat-section">
+            <h2>💬 Chat</h2>
+            <div class="chatango-container">
+                <script id="cid0020000437702744466" data-cfasync="false" async src="//st.chatango.com/js/gz/emb.js" style="width: 250px;height: 350px;">{"handle":"hejkolego","arch":"js","styles":{"a":"CC0000","b":100,"c":"FFFFFF","d":"FFFFFF","k":"CC0000","l":"CC0000","m":"CC0000","n":"FFFFFF","p":"10","q":"CC0000","r":100,"fwtickm":1}}</script>
             </div>
-            
-            <button class="clear-shoutbox" id="clearShoutboxBtn">🗑️ Wyczyść shoutbox</button>
         </div>
     </div>
     
@@ -584,8 +490,7 @@
             // ---------- Konfiguracja ----------
             const MUSIC_FOLDER = 'assets/piosenki/';
             
-   // Lista plików MP3 w folderze (zakładamy, że są to pliki)
-            // Możesz dodać własne nazwy plików tutaj lub użyć dynamicznego skanowania
+            // Lista plików MP3 w folderze
             const SONG_FILES = [
                 'Radio Chlew - Stara rura.mp3',
                 'ZF Sebastian - Każdy ziom zbiera złom.mp3',
@@ -625,7 +530,6 @@
             
             // ---------- Inicjalizacja ----------
             function init() {
-                loadShoutboxFromStorage();
                 setupEventListeners();
                 audioPlayer.volume = volumeSlider.value / 100;
                 updateVolumeDisplay();
@@ -832,75 +736,6 @@
                 audioPlayer.volume = volume / 100;
             }
             
-            // ---------- Shoutbox ----------
-            function loadShoutboxFromStorage() {
-                const stored = localStorage.getItem('radio_shoutbox');
-                if (stored) {
-                    try {
-                        const messages = JSON.parse(stored);
-                        renderShoutbox(messages);
-                    } catch(e) {
-                        console.error('Błąd ładowania shoutboxa:', e);
-                    }
-                } else {
-                    const defaultMsg = [{
-                        name: 'Radio',
-                        message: '🎵 Witaj w radiu! Słuchasz muzyki z folderu assets/piosenki/',
-                        timestamp: Date.now()
-                    }];
-                    localStorage.setItem('radio_shoutbox', JSON.stringify(defaultMsg));
-                    renderShoutbox(defaultMsg);
-                }
-            }
-            
-            function renderShoutbox(messages) {
-                const container = document.getElementById('shoutboxMessages');
-                container.innerHTML = '';
-                
-                messages.slice().reverse().forEach(msg => {
-                    const div = document.createElement('div');
-                    div.className = 'message';
-                    
-                    const time = msg.timestamp ? new Date(msg.timestamp).toLocaleTimeString('pl-PL', {
-                        hour: '2-digit',
-                        minute: '2-digit'
-                    }) : '--:--';
-                    
-                    div.innerHTML = `
-                        <div class="message-header">
-                            <span class="message-name">${escapeHtml(msg.name)}</span>
-                            <span class="message-time">${time}</span>
-                        </div>
-                        <div class="message-text">${escapeHtml(msg.message)}</div>
-                    `;
-                    
-                    container.appendChild(div);
-                });
-                
-                // Automatycznie przewiń na dół
-                container.scrollTop = container.scrollHeight;
-            }
-            
-            function addShoutboxMessage(name, text) {
-                if (!name.trim() || !text.trim()) return;
-                
-                const stored = localStorage.getItem('radio_shoutbox');
-                let messages = stored ? JSON.parse(stored) : [];
-                
-                messages.push({
-                    name: name.trim(),
-                    message: text.trim(),
-                    timestamp: Date.now()
-                });
-                
-                if (messages.length > 100) {
-                    messages = messages.slice(-100);
-                }
-                
-                localStorage.setItem('radio_shoutbox', JSON.stringify(messages));
-                renderShoutbox(messages);
-            }
-            
             // ---------- Narzędzia ----------
             function formatTime(seconds) {
                 if (isNaN(seconds)) return '0:00';
@@ -968,31 +803,6 @@
                 
                 // Odświeżanie playlisty
                 refreshBtn.addEventListener('click', loadPlaylist);
-                
-                // Shoutbox
-                document.getElementById('sendMessageBtn').addEventListener('click', () => {
-                    const name = document.getElementById('shoutboxName').value || 'Słuchacz';
-                    const message = document.getElementById('shoutboxMessage').value;
-                    
-                    if (message.trim()) {
-                        addShoutboxMessage(name, message);
-                        document.getElementById('shoutboxMessage').value = '';
-                    }
-                });
-                
-                document.getElementById('shoutboxMessage').addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter' && !e.shiftKey) {
-                        e.preventDefault();
-                        document.getElementById('sendMessageBtn').click();
-                    }
-                });
-                
-                document.getElementById('clearShoutboxBtn').addEventListener('click', () => {
-                    if (confirm('Na pewno wyczyścić cały shoutbox?')) {
-                        localStorage.removeItem('radio_shoutbox');
-                        loadShoutboxFromStorage();
-                    }
-                });
             }
             
             // Start aplikacji
